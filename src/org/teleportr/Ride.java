@@ -51,6 +51,11 @@ public class Ride {
         return this;
     }
 
+    public Ride set(String key, String value) {
+        mockRide += "\n " + key + ": " + value;
+        return this;
+    }
+
     public Ride details(String details) {
         mockRide += "\n details: "
                 + details.substring(0, Math.min(details.length(), 21));
