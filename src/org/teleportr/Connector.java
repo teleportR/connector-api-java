@@ -1,11 +1,22 @@
+/**
+ * Fahrgemeinschaft / Ridesharing App
+ * Copyright (c) 2013 by it's authors.
+ * Some rights reserved. See LICENSE..
+ *
+ */
+
 package org.teleportr;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public abstract class Connector {
@@ -17,9 +28,15 @@ public abstract class Connector {
 
     public void resolvePlace(Place place) {}
 
+    public String authenticate() { return null; }
+
+    public String getAuth() {
+        return authenticate();
+    }
 
     public ArrayList<String> placesBatch;
     public ArrayList<String> ridesBatch;
+    public Map<String, String> settings;
 
     public Connector() {
         placesBatch = new ArrayList<String>();
@@ -42,32 +59,30 @@ public abstract class Connector {
     }
 
     public String getSetting(String key) {
-        if (key.equals("radius_from")) return "15";
-        if (key.equals("radius_to")) return "25";
-        return null;
+        return settings.get(key);
     }
     
-    public static String httpGet(String url) {
-        HttpURLConnection conn = null;
-        StringBuilder jsonResults = new StringBuilder();
+    public JSONObject loadJson(HttpURLConnection conn) {
+        StringBuilder result = new StringBuilder();
         try {
-            conn = (HttpURLConnection) new URL(url).openConnection();
-            InputStreamReader in = new InputStreamReader(conn.getInputStream());
-
+            InputStreamReader in = new InputStreamReader(
+                    new BufferedInputStream(conn.getInputStream()));
             int read;
             char[] buff = new char[1024];
             while ((read = in.read(buff)) != -1) {
-                jsonResults.append(buff, 0, read);
+                result.append(buff, 0, read);
             }
+            return new JSONObject(result.toString());
+        } catch (JSONException e) {
+            System.out.println("json error");
         } catch (IOException e) {
-            System.out.println("io exception " + e.getMessage());
+            System.out.println("io error");
             e.printStackTrace();
-            return null;
         } finally {
             if (conn != null) {
                 conn.disconnect();
             }
         }
-        return jsonResults.toString();
+        return null;
     }
 }
