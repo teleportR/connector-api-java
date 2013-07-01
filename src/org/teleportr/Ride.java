@@ -2,6 +2,7 @@ package org.teleportr;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Ride {
@@ -11,7 +12,10 @@ public class Ride {
 
     public static ArrayList<String> mockRides = new ArrayList<String>();
 
-    String mockRide = "";
+    private String mockRide = "";
+    private List<Ride> subrides;
+    private Place from;
+    private Place to;
 
     public Ride() {
         mockRides.add(mockRide);
@@ -23,16 +27,33 @@ public class Ride {
 
     public Ride from(Place from) {
         mockRide += "\n from: " + from.geohash;
+        this.from = from;
         return this;
     }
 
     public Ride via(Place via) {
         mockRide += "\n via: " + via.geohash;
+        Ride sub = new Ride();
+        if (subrides == null) {
+            subrides = new ArrayList<Ride>();
+            sub.from(from);
+        } else {
+            sub.from(subrides.get(subrides.size()-1).getTo());
+        }
+        sub.to(via);
+        subrides.add(sub);
         return this;
     }
 
     public Ride to(Place to) {
         mockRide += "\n to: " + to.geohash;
+        this.to = to;
+        if (subrides != null) {
+            Ride sub = new Ride();
+            sub.from(subrides.get(subrides.size()-1).getTo());
+            sub.to(to);
+            subrides.add(sub);
+        }
         return this;
     }
 
@@ -81,4 +102,17 @@ public class Ride {
     public String toString() {
         return mockRide;
     }
+
+    public List<Ride> getSubrides() {
+        return subrides;
+    }
+
+    public Place getFrom() {
+        return from;
+    }
+
+    public Place getTo() {
+        return to;
+    }
+
 }
