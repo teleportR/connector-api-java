@@ -20,6 +20,8 @@ public class Place {
     public int lat;
     public int lng;
     public String geohash;
+    private String name;
+    private String address;
 
     public Place(String geohash) {
         geohash(geohash);
@@ -61,11 +63,13 @@ public class Place {
     }
 
     public Place name(String name) {
+        this.name = name;
         set("name", name);
         return this;
     }
 
     public Place address(String address) {
+        this.address = address;
         set("address", address);
         return this;
     }
@@ -82,4 +86,14 @@ public class Place {
     public double getLng() {
         return ((double) lng) / 1E6;
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
 }

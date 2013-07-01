@@ -57,8 +57,12 @@ public abstract class Connector {
             System.out.println(ridesBatch.get(i));
         }
     }
+    
+    public String set(String key, String value) {
+        return settings.put(key, value);
+    }
 
-    public String getSetting(String key) {
+    public String get(String key) {
         return settings.get(key);
     }
     
@@ -72,6 +76,7 @@ public abstract class Connector {
             while ((read = in.read(buff)) != -1) {
                 result.append(buff, 0, read);
             }
+            System.out.println("\n" + result.toString() + "\n");
             return new JSONObject(result.toString());
         } catch (JSONException e) {
             System.out.println("json error");
