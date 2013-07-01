@@ -22,9 +22,9 @@ import org.json.JSONObject;
 public abstract class Connector {
 
 
-    public long getRides(Place from, Place to, Date dep, Date arr) { return 0; }
+    public abstract long search(Place from, Place to, Date dep, Date arr);
 
-    public void postRide(Place from, Place to, Date dep, Date arr) {}
+    public abstract int publish(Ride offer);
 
     public void resolvePlace(Place place) {}
 
