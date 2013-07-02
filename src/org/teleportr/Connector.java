@@ -26,12 +26,17 @@ public abstract class Connector {
 
     public abstract int publish(Ride offer) throws Exception;
 
-    public void resolvePlace(Place place) {}
+    public void resolvePlace(Place place) throws Exception {}
 
-    public String authenticate() { return null; }
+    public String authenticate() throws Exception { return null; }
 
     public String getAuth() {
-        return authenticate();
+        try {
+            return authenticate();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public ArrayList<String> placesBatch;
@@ -67,6 +72,7 @@ public abstract class Connector {
     }
     
     public JSONObject loadJson(HttpURLConnection conn) {
+        System.out.println("loading " + conn.getURL());
         StringBuilder result = new StringBuilder();
         try {
             InputStreamReader in = new InputStreamReader(
