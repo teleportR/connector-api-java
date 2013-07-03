@@ -16,6 +16,12 @@ public class Ride {
     private List<Ride> subrides;
     private Place from;
     private Place to;
+    private int price;
+    private int seats;
+    private Date dep;
+    private Date arr;
+    private String who;
+    private String ref;
 
     public Ride() {
         mockRides.add(mockRide);
@@ -58,16 +64,19 @@ public class Ride {
     }
 
     public Ride dep(Date dep) {
+        this.dep = dep;
         mockRide += "\n dep: " + dep;
         return this;
     }
 
     public Ride arr(Date arr) {
+        this.arr = arr;
         mockRide += ", arr: " + arr;
         return this;
     }
 
     public Ride who(String who) {
+        this.who = who;
         mockRide += "\n who: " + who;
         return this;
     }
@@ -83,17 +92,20 @@ public class Ride {
         return this;
     }
 
-    public Ride price(long price) {
+    public Ride price(int price) {
+        this.price = price;
         mockRide += "\n price: " + price;
         return this;
     }
 
-    public Ride seats(long seats) {
+    public Ride seats(int seats) {
+        this.seats = seats;
         mockRide += "\n seats: " + seats;
         return this;
     }
 
     public Ride ref(String ref) {
+        this.ref = ref;
         mockRide += "\n ref: " + ref;
         return this;
     }
@@ -107,6 +119,27 @@ public class Ride {
         return subrides;
     }
 
+    public List<Place> getVias() {
+        ArrayList<Place> vias = new ArrayList<Place>();
+        if (subrides != null) {
+            for (int i = 1; i < subrides.size(); i++) {
+                vias.add(subrides.get(i).getFrom());
+            }
+        }
+        return vias;
+    }
+
+    public List<Place> getPlaces() {
+        ArrayList<Place> places = new ArrayList<Place>();
+        if (subrides != null) {
+            for (int i = 0; i < subrides.size(); i++) {
+                places.add(subrides.get(i).getFrom());
+            }
+            places.add(getTo());
+        }
+        return places;
+    }
+
     public Place getFrom() {
         return from;
     }
@@ -114,5 +147,27 @@ public class Ride {
     public Place getTo() {
         return to;
     }
+    public Date getDep() {
+        return dep;
+    }
 
+    public Date getArr() {
+        return arr;
+    }
+
+    public String getWho() {
+        return who;
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
 }
