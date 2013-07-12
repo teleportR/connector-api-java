@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class Ride {
 
@@ -22,6 +25,7 @@ public class Ride {
     private Date arr;
     private String who;
     private String ref;
+    private JSONObject details;
 
     public Ride() {
         mockRides.add(mockRide);
@@ -81,14 +85,12 @@ public class Ride {
         return this;
     }
 
-    public Ride set(String key, String value) {
-        mockRide += "\n " + key + ": " + value;
-        return this;
-    }
-
-    public Ride details(String details) {
-        mockRide += "\n details: "
-                + details.substring(0, Math.min(details.length(), 21));
+    public Ride set(String key, String val) {
+        try {
+            getDetails().put(key, val.substring(0, Math.min(val.length(), 21)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
@@ -112,6 +114,8 @@ public class Ride {
 
     @Override
     public String toString() {
+        if (details != null)
+            mockRide += "\n details: " + details.toString();
         return mockRide;
     }
 
@@ -169,5 +173,20 @@ public class Ride {
 
     public int getSeats() {
         return seats;
+    }
+
+    public String get(String key) {
+        try {
+            return getDetails().getString(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public JSONObject getDetails() {
+        if (details == null)
+            details = new JSONObject();
+        return details;
     }
 }
