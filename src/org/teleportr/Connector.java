@@ -24,7 +24,7 @@ public abstract class Connector {
 
     public abstract long search(Place from, Place to, Date dep, Date arr) throws Exception;
 
-    public abstract int publish(Ride offer) throws Exception;
+    public abstract String publish(Ride offer) throws Exception;
 
     public void resolvePlace(Place place) throws Exception {}
 
