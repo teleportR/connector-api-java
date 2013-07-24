@@ -26,6 +26,7 @@ public class Ride {
     private String who;
     private String ref;
     private JSONObject details;
+    private boolean marked;
 
     public Ride() {
         mockRides.add(mockRide);
@@ -109,6 +110,12 @@ public class Ride {
     public Ride ref(String ref) {
         this.ref = ref;
         mockRide += "\n ref: " + ref;
+        return this;
+    }
+
+    public Ride marked() {
+        this.marked = true;
+        mockRide += "\n marked: " + marked;
         return this;
     }
 
