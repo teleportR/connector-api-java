@@ -32,6 +32,7 @@ public class Ride {
     private JSONObject details;
     private boolean marked;
     private Mode mode;
+    private boolean active;
 
     public Ride() {
         mockRides.add(mockRide);
@@ -130,6 +131,18 @@ public class Ride {
         return this;
     }
 
+    public Ride activate() {
+        this.active = true;
+        mockRide += "\n active: " + true;
+        return this;
+    }
+
+    public Ride deactivate() {
+        this.active = false;
+        mockRide += "\n active: " + false;
+        return this;
+    }
+
     @Override
     public String toString() {
         if (details != null)
@@ -195,6 +208,10 @@ public class Ride {
 
     public Mode getMode() {
         return mode;
+    }
+
+    public boolean isActive() {
+        return active;
     }
 
     public String get(String key) {
