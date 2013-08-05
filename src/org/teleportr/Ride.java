@@ -13,6 +13,10 @@ public class Ride {
     public static final int SEARCH = 42;
     public static final int OFFER = 47;
 
+    public static enum Mode {
+        CAR, TRAIN
+    };
+
     public static ArrayList<String> mockRides = new ArrayList<String>();
 
     private String mockRide = "";
@@ -27,12 +31,19 @@ public class Ride {
     private String ref;
     private JSONObject details;
     private boolean marked;
+    private Mode mode;
 
     public Ride() {
         mockRides.add(mockRide);
     }
 
     public Ride type(int type) {
+        return this;
+    }
+
+    public Ride mode(Mode mode) {
+        this.mode = mode;
+        mockRide += "\n mode: " + this.mode;
         return this;
     }
 
@@ -180,6 +191,10 @@ public class Ride {
 
     public int getSeats() {
         return seats;
+    }
+
+    public Mode getMode() {
+        return mode;
     }
 
     public String get(String key) {
