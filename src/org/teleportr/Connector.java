@@ -22,6 +22,8 @@ import org.json.JSONObject;
 public abstract class Connector {
 
 
+    private String auth;
+
     public abstract long search(Place from, Place to, Date dep, Date arr) throws Exception;
 
     public abstract String publish(Ride offer) throws Exception;
@@ -30,11 +32,21 @@ public abstract class Connector {
 
     public void resolvePlace(Place place) throws Exception {}
 
-    public String authenticate() throws Exception { return null; }
+    public String authenticate(String credential) throws Exception {
+        return null;
+    }
+
+    public void login(String credential) {
+        try {
+            auth = authenticate(credential);
+        } catch (Exception e) {
+            auth = null;
+        }
+    }
 
     public String getAuth() {
         try {
-            return authenticate();
+            return auth;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -90,7 +102,6 @@ public abstract class Connector {
             System.out.println("json error");
         } catch (IOException e) {
             System.out.println("io error");
-            e.printStackTrace();
         } finally {
             if (conn != null) {
                 conn.disconnect();

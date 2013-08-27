@@ -36,6 +36,7 @@ public class Ride {
 
     public Ride() {
         mockRides.add(mockRide);
+        mode(Mode.CAR);
     }
 
     public Ride type(int type) {
