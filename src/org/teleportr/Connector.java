@@ -54,12 +54,12 @@ public abstract class Connector {
     }
 
     public ArrayList<String> placesBatch;
-    public ArrayList<String> ridesBatch;
+    public ArrayList<Ride> ridesBatch;
     public Map<String, String> settings;
 
     public Connector() {
         placesBatch = new ArrayList<String>();
-        ridesBatch = new ArrayList<String>();
+        ridesBatch = new ArrayList<Ride>();
     }
 
     protected Place store(Place place) {
@@ -68,12 +68,16 @@ public abstract class Connector {
     }
 
     protected void store(Ride ride) {
-        ridesBatch.add(ride.toString());
+        ridesBatch.add(ride);
+    }
+
+    public int getNumberOfRidesFound() {
+        return ridesBatch.size();
     }
 
     public void printResults() {
         for (int i = 0; i < ridesBatch.size(); i++) {
-            System.out.println(ridesBatch.get(i));
+            System.out.println(ridesBatch.get(i).toString());
         }
     }
     
@@ -102,6 +106,7 @@ public abstract class Connector {
             System.out.println("json error");
         } catch (IOException e) {
             System.out.println("io error");
+            e.printStackTrace();
         } finally {
             if (conn != null) {
                 conn.disconnect();

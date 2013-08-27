@@ -20,19 +20,19 @@ public class Ride {
     public static ArrayList<String> mockRides = new ArrayList<String>();
 
     private String mockRide = "";
-    private List<Ride> subrides;
-    private Place from;
-    private Place to;
-    private int price;
-    private int seats;
-    private Date dep;
-    private Date arr;
-    private String who;
-    private String ref;
-    private JSONObject details;
-    private boolean marked;
-    private Mode mode;
-    private boolean active;
+    public List<Ride> subrides;
+    public Place from;
+    public Place to;
+    public int price;
+    public int seats;
+    public Date dep;
+    public Date arr;
+    public String who;
+    public String ref;
+    public JSONObject details;
+    public boolean marked;
+    public Mode mode;
+    public boolean active;
 
     public Ride() {
         mockRides.add(mockRide);
