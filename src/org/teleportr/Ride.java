@@ -89,7 +89,7 @@ public class Ride {
 
     public Ride arr(Date arr) {
         this.arr = arr;
-        mockRide += ", arr: " + arr;
+        mockRide += "\n arr: " + arr;
         return this;
     }
 
