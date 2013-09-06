@@ -183,12 +183,12 @@ public class Ride {
     public Place getTo() {
         return to;
     }
-    public Date getDep() {
-        return dep;
+    public long getDep() {
+        return dep.getTime();
     }
 
-    public Date getArr() {
-        return arr;
+    public long getArr() {
+        return arr.getTime();
     }
 
     public String getWho() {

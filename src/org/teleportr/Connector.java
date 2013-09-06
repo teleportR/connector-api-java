@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Map;
 
 import org.json.JSONException;
@@ -22,9 +21,9 @@ import org.json.JSONObject;
 public abstract class Connector {
 
 
-    private String auth;
+    public String auth;
 
-    public abstract long search(Place from, Place to, Date dep, Date arr) throws Exception;
+    public abstract long search(Ride query) throws Exception;
 
     public abstract String publish(Ride offer) throws Exception;
 
