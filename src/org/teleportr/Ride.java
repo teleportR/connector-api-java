@@ -33,13 +33,14 @@ public class Ride {
     public boolean marked;
     public Mode mode;
     public boolean active;
+    private int type;
 
     public Ride() {
         mockRides.add(mockRide);
-        mode(Mode.CAR);
     }
 
     public Ride type(int type) {
+        this.type = type;
         return this;
     }
 
@@ -174,6 +175,10 @@ public class Ride {
             places.add(getTo());
         }
         return places;
+    }
+
+    public int getType() {
+        return type;
     }
 
     public Place getFrom() {
